@@ -1,11 +1,19 @@
 import streamlit as st
 import pandas as pd
-from utils.database import get_connection
+from utils.database import get_connection, load_overview
 
 st.header("💰 매출 분석")
-st.caption("@st.fragment로 부분 재실행 - 필터 변경 시 해당 영역만 재실행")
 
+# 공통 데이터: DB 전체 요약
 conn = get_connection()
+overview = load_overview()
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric("총 고객 수", f"{overview['total_customers']:,}명")
+with col2:
+    st.metric("총 주문 수", f"{overview['total_invoices']:,}건")
+with col3:
+    st.metric("총 트랙 수", f"{overview['total_tracks']:,}곡")
 st.success(f"✅ DB 연결 (id: {id(conn)})")
 
 # -----------------------------------------------------------------------------

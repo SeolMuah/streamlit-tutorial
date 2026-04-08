@@ -168,7 +168,7 @@ st.divider()
 # 3. @st.fragment - 부분 재실행
 # =============================================================================
 st.header("3. @st.fragment - 부분 재실행")
-st.write("- `@st.fragment` : 위젯 변경 시 **해당 영역만** 재실행 (Fragment 내 위젯에는 `key` 필수)")
+st.write("- `@st.fragment` : 위젯 변경 시 **해당 영역만** 재실행")
 
 # -----------------------------------------------------------------------------
 st.subheader("(1) 필터링 Fragment")
@@ -176,8 +176,8 @@ st.subheader("(1) 필터링 Fragment")
 st.code('''@st.fragment
 def filter_section():
     genres = tracks_df['Genre'].unique().tolist()
-    selected_genre = st.selectbox("장르 선택", genres, key="filter_genre")
-    max_price = st.slider("최대 가격", 0.0, 2.0, 1.0, key="filter_price")
+    selected_genre = st.selectbox("장르 선택", genres)
+    max_price = st.slider("최대 가격", 0.0, 2.0, 1.0)
 
     filtered = tracks_df[
         (tracks_df['Genre'] == selected_genre) &
@@ -197,7 +197,7 @@ def filter_section():
         genres = tracks_df['Genre'].unique().tolist()
         selected_genre = st.selectbox("장르 선택", genres, key="filter_genre")
     with col2:
-        max_price = st.slider("최대 가격", 0.0, 2.0, 1.0, step=0.1, key="filter_price")
+        max_price = st.slider("최대 가격", 0.0, 2.0, 1.0, step=0.1)
 
     filtered = tracks_df[
         (tracks_df['Genre'] == selected_genre) &
@@ -216,8 +216,7 @@ def chart_section():
     chart_type = st.radio(
         "차트 유형",
         ["장르별 트랙 수", "아티스트별 앨범 수", "가격 분포"],
-        horizontal=True,
-        key="chart_type"
+        horizontal=True
     )
 
     if chart_type == "장르별 트랙 수":
@@ -239,8 +238,7 @@ def chart_section():
     chart_type = st.radio(
         "차트 유형",
         ["장르별 트랙 수", "아티스트별 앨범 수", "가격 분포"],
-        horizontal=True,
-        key="chart_type"
+        horizontal=True
     )
 
     if chart_type == "장르별 트랙 수":
@@ -274,7 +272,7 @@ def expensive_aggregation(genre):
 
 @st.fragment
 def aggregation_fragment():
-    genre = st.selectbox("장르 선택", tracks_df['Genre'].unique(), key="agg_genre")
+    genre = st.selectbox("장르 선택", tracks_df['Genre'].unique())
 
     with st.spinner("계산 중..."):
         result = expensive_aggregation(genre)
@@ -318,4 +316,4 @@ def aggregation_fragment():
 
 aggregation_fragment()
 
-st.caption("© 2025 Streamlit 성능 최적화")
+st.caption("© 2026 Streamlit 성능 최적화")

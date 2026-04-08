@@ -67,7 +67,7 @@ st.write("**st.code(body, language):** 구문 강조된 코드 블록 표시")
 st.code("""
 def hello():
     print("Hello Streamlit!")
-""", language='python')  # 언어 지정으로 구문 강조 활성화
+""",                              language='python')  # 언어 지정으로 구문 강조 활성화
 
 # =============================================================================
 # 5. 수학 공식 (Formatted Text)
@@ -143,7 +143,7 @@ st.subheader("데이터프레임")
 # - width: 테이블 너비 (픽셀 단위 또는 'stretch'로 컨테이너 너비에 맞춤)
 st.write("**st.dataframe(data, height, width):** 인터랙티브 테이블 (정렬, 검색, 크기 조절 가능)")
 st.write("**용도:** 대용량 데이터 탐색, 사용자가 직접 정렬/필터링해야 할 때 사용")
-st.dataframe(df, height=200, width=500)
+st.dataframe(df, height=500, width=1000)
 
 # st.write(): 만능 함수 - DataFrame 출력시 옵션 설정 불가!
 st.write("**st.write(df):** DataFrame도 출력 가능 (단, 옵션 설정 불가)")
@@ -182,3 +182,28 @@ with col2:
 with col3:
     # delta에 양수를 넣으면 녹색으로 표시됨
     st.metric(label="성장률", value="15.2%", delta="1.2%")
+
+
+# 4회차 streamlit 실습
+# (1) 기본 입출력
+# (2) 레이아웃 
+# (3) API/머신러닝 연동
+# (4) 배포 
+
+#-------------------------------------
+# 8시 05분에 다시 시작하겠습니다~!
+# Ctrl + C
+
+
+from streamlit_extras.metric_cards import style_metric_cards
+
+def example() -> None:
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric(label="Gain", value=5000, delta=1000)
+    col2.metric(label="Loss", value=5000, delta=-1000)
+    col3.metric(label="No Change", value=5000, delta=0)
+
+    style_metric_cards()
+    
+example()

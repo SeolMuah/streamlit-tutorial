@@ -107,7 +107,7 @@ st.text(f"선택된 가격 범위: ${price_range[0]:.1f}만 ~ ${price_range[1]:.
 if len(filtered_df) > 0:
     map_filtered = filtered_df[['위도', '경도']].copy()
     map_filtered.columns = ['lat', 'lon']
-    st.map(map_filtered.sample(min(100, len(map_filtered))), zoom=5)
+    st.map(map_filtered, zoom=5)
 else:
     st.warning("선택된 가격 범위에 해당하는 주택이 없습니다.")
 

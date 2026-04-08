@@ -13,7 +13,7 @@ DB_PATH = os.path.join(BASE_DIR, "..", "data", "chinook.db")
 @st.cache_resource
 def get_connection():
     """
-    DB 연결 (싱글톤)
+    DB 연결
     - 모든 페이지에서 동일한 연결 객체 공유
     - 모든 사용자/세션에서 공유
     """
@@ -22,16 +22,16 @@ def get_connection():
 
 
 @st.cache_data
-def load_tracks():
-    """트랙 데이터 로드 (캐싱)"""
+def load_overview():
+    """DB 전체 요약 통계 (공통 데이터)"""
     conn = get_connection()
     df = pd.read_sql("""
-        SELECT t.TrackId, t.Name as TrackName, a.Title as Album,
-               ar.Name as Artist, g.Name as Genre,
-               t.Milliseconds / 1000 as Seconds, t.UnitPrice
-        FROM tracks t
-        JOIN albums a ON t.AlbumId = a.AlbumId
-        JOIN artists ar ON a.ArtistId = ar.ArtistId
-        JOIN genres g ON t.GenreId = g.GenreId
+        SELECT
+            (SELECT COUNT(*) FROM tracks) as total_tracks,
+            (SELECT COUNT(*) FROM artists) as total_artists,
+            (SELECT COUNT(*) FROM albums) as total_albums,
+            (SELECT COUNT(*) FROM genres) as total_genres,
+            (SELECT COUNT(*) FROM customers) as total_customers,
+            (SELECT COUNT(*) FROM invoices) as total_invoices
     """, conn)
-    return df
+    return df.iloc[0]

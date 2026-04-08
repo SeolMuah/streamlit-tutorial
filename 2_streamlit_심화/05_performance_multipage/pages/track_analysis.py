@@ -1,15 +1,39 @@
 import streamlit as st
 import pandas as pd
-from utils.database import load_tracks, get_connection
+from utils.database import get_connection, load_overview
 
 st.header("🎵 트랙 분석")
-st.caption("@st.cache_data로 데이터 캐싱 - 다른 페이지와 동일한 데이터 공유")
 
-# DB 연결 id 확인
+# 공통 데이터: DB 전체 요약
 conn = get_connection()
+overview = load_overview()
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric("총 트랙 수", f"{overview['total_tracks']:,}곡")
+with col2:
+    st.metric("총 아티스트 수", f"{overview['total_artists']:,}명")
+with col3:
+    st.metric("총 앨범 수", f"{overview['total_albums']:,}장")
 st.success(f"✅ DB 연결 (id: {id(conn)})")
 
-# 캐싱된 데이터 로드
+
+# 트랙 데이터 로드 (이 페이지 전용)
+@st.cache_data
+def load_tracks():
+    """트랙 데이터 로드 (캐싱)"""
+    conn = get_connection()
+    df = pd.read_sql("""
+        SELECT t.TrackId, t.Name as TrackName, a.Title as Album,
+               ar.Name as Artist, g.Name as Genre,
+               t.Milliseconds / 1000 as Seconds, t.UnitPrice
+        FROM tracks t
+        JOIN albums a ON t.AlbumId = a.AlbumId
+        JOIN artists ar ON a.ArtistId = ar.ArtistId
+        JOIN genres g ON t.GenreId = g.GenreId
+    """, conn)
+    return df
+
+
 tracks_df = load_tracks()
 st.write(f"**{len(tracks_df):,}개 트랙 로드됨**")
 

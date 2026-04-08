@@ -53,6 +53,9 @@ with st.sidebar:
     # -----------------------------------------------------
     st.header("🔍 필터 옵션")
 
+
+
+
     # 소득 필터
     st.write("**💰 소득 범위 (만 달러)**")
     income_range = st.slider(
@@ -77,13 +80,15 @@ with st.sidebar:
 
     # 인구 필터
     st.write("**👥 인구 수**")
+    
+
     pop_range = st.slider(
         "인구 수",
         min_value=int(df['Population'].min()),
         max_value=int(df['Population'].max()),
         value=(int(df['Population'].min()), int(df['Population'].max())),
-        label_visibility="collapsed",
-        key="pop_filter"
+        label_visibility="collapsed", #라벨 숨김!
+        key="pop_filter" # 세션 스테이트에 해당 값을 저장
     )
 
     st.divider()
@@ -93,14 +98,14 @@ with st.sidebar:
     # -----------------------------------------------------
     # 필터 적용
     filtered_df = df[
-        (df['MedInc'] >= income_range[0]) &
+        (df['MedInc'] >= st.session_state['income_filter'][0]) &
         (df['MedInc'] <= income_range[1]) &
         (df['HouseAge'] >= age_range[0]) &
         (df['HouseAge'] <= age_range[1]) &
         (df['Population'] >= pop_range[0]) &
         (df['Population'] <= pop_range[1])
     ]
-
+    st.write(f"{st.session_state}")
     st.metric(label="필터링된 데이터", value=f"{len(filtered_df):,}건")
 
     # =========================================================================
@@ -109,15 +114,16 @@ with st.sidebar:
     # [session_state와 key의 관계]
     # 1. 위젯에 key="income_filter" 설정 시, Streamlit이 자동으로
     #    st.session_state["income_filter"]에 위젯 값을 저장함 (별도 초기화 불필요)
-    # 2. del st.session_state["key"]로 키를 삭제하면,
-    #    다음 rerun 시 위젯이 value 파라미터의 기본값으로 초기화됨
-    # 3. st.rerun()은 스크립트를 처음부터 다시 실행함
+    # 2. 위젯이 이미 렌더링된 후에는 해당 키를 직접 수정할 수 없으므로,
+    #    on_click 콜백을 사용하여 다음 rerun의 위젯 렌더링 전에 값을 설정함
+    # 3. 콜백은 버튼 클릭 시 rerun 직전에 실행되므로 st.rerun() 호출 불필요
     # =========================================================================
-    if st.button("🔄 필터 초기화", use_container_width=True):
-        for key in ["income_filter", "age_filter", "pop_filter"]:
-            if key in st.session_state:
-                del st.session_state[key]  # 키 삭제 → 위젯이 기본값으로 리셋
-        st.rerun()  # 스크립트 재실행
+    def reset_filters():
+        st.session_state["income_filter"] = (float(df['MedInc'].min()), float(df['MedInc'].max()))
+        st.session_state["age_filter"] = (int(df['HouseAge'].min()), int(df['HouseAge'].max()))
+        st.session_state["pop_filter"] = (int(df['Population'].min()), int(df['Population'].max()))
+
+    st.button("🔄 필터 초기화", width='stretch', on_click=reset_filters)
 
     st.divider()
     st.caption("💡 사이드바는 왼쪽 상단의 > 버튼으로 접을 수 있습니다.")
@@ -221,4 +227,4 @@ with st.expander("📊 심층 분석", expanded=False):
         st.pyplot(fig3)
 
 st.divider()
-st.caption("© 2025 캘리포니아 주택 데이터 분석 | Streamlit 레이아웃 실습")
+st.caption("© 2026 캘리포니아 주택 데이터 분석 | Streamlit 레이아웃 실습")

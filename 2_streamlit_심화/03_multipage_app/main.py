@@ -112,13 +112,13 @@ with st.sidebar:
 
 
     # Session State 현재 상태 표시
-    with st.expander("🔄 현재 Session State", expanded=False):
+    with st.expander("🔄 현재 Session State", expanded=True):
         if len(st.session_state) > 0:
             st.json({k: str(v) for k, v in st.session_state.items()})
         else:
             st.write("저장된 Session State가 없습니다.")
 
-    st.caption("© 2025 Multi Pages App")
+    st.caption("© 2026 Multi Pages App")
 
 # =============================================================================
 # 선택된 페이지 실행 (필수!)

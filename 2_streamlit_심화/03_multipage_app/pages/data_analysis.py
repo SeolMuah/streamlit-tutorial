@@ -55,6 +55,8 @@ if "income_min" not in st.session_state:
 if "income_max" not in st.session_state:
     st.session_state.income_max = float(df['MedInc'].max())
 
+
+
 # =============================================================================
 # 사이드바: 필터 설정 (main.py의 placeholder 활용)
 # =============================================================================

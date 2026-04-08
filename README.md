@@ -61,6 +61,20 @@ Streamlit의 핵심 기능을 익히는 기초 실습입니다.
 | `05_performance_multipage/` | 성능 최적화 멀티페이지 앱 | `streamlit run 2_streamlit_심화/05_performance_multipage/main.py` |
 
 
+### 3회차 - Streamlit 응용
+
+> 폴더: [`3_streamlit_응용/`](3_streamlit_응용/)
+
+ML 모델 연동, 외부 API 연결 등 실전 응용 실습입니다.
+
+| 파일 | 내용 | 실행 |
+|------|------|------|
+| `01_ml_prediction/train_iris_model.py` | Iris 분류 모델 훈련 및 저장 | `python 3_streamlit_응용/01_ml_prediction/train_iris_model.py` |
+| `01_ml_prediction/app.py` | 붓꽃 품종 예측 앱 (ML 모델 서빙) | `streamlit run 3_streamlit_응용/01_ml_prediction/app.py` |
+| `02_api_connection/gemini_chatbot.py` | Gemini API 챗봇 (PydanticAI) | `streamlit run 3_streamlit_응용/02_api_connection/gemini_chatbot.py` |
+| `02_api_connection/youtube_search.py` | YouTube Data API 영상 검색 | `streamlit run 3_streamlit_응용/02_api_connection/youtube_search.py` |
+
+
 ## 실행 방법
 
 ### 1회차
@@ -82,4 +96,16 @@ streamlit run 2_streamlit_심화/02_california_housing_dashboard.py
 streamlit run 2_streamlit_심화/03_multipage_app/main.py
 streamlit run 2_streamlit_심화/04_performance_optimization.py
 streamlit run 2_streamlit_심화/05_performance_multipage/main.py
+```
+
+### 3회차
+
+```bash
+# ML 모델 훈련 (최초 1회)
+python 3_streamlit_응용/01_ml_prediction/train_iris_model.py
+
+# 앱 실행
+streamlit run 3_streamlit_응용/01_ml_prediction/app.py
+streamlit run 3_streamlit_응용/02_api_connection/gemini_chatbot.py
+streamlit run 3_streamlit_응용/02_api_connection/youtube_search.py
 ```

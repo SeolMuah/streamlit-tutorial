@@ -109,7 +109,7 @@ weight = st.number_input(
     max_value=300.0,
     value=65.5,  # 기본값
     step=0.1,  # 0.1kg 단위
-    format="%.1f",  # 소수점 1자리까지 표시
+    format="%.3f",  # 소수점 1자리까지 표시
     help="소수점 첫째자리까지 입력 가능합니다"
 )
 st.write(f"입력한 체중: **{weight:.1f}kg**")
@@ -169,7 +169,7 @@ st.write("**용도:** 사이즈, 등급, 레벨 등 불연속적인 값 선택 �
 size = st.select_slider(
     label="티셔츠 사이즈 선택",
     options=["XS", "S", "M", "L", "XL", "XXL"],
-    value="M",  # 기본값
+    value=("S","M"),  # 기본값
     help="원하는 사이즈를 선택하세요"
 )
 st.write(f"선택한 사이즈: **{size}**")
@@ -226,7 +226,7 @@ hobbies = st.multiselect(
 )
 
 if hobbies:
-    st.write(f"선택한 취미 ({len(hobbies)}개): **{', '.join(hobbies)}**")
+    st.write(f"선택한 취미 ({len(hobbies)}개): **{', '.join(hobbies)}** {hobbies[-1]}")
 else:
     st.info("취미를 선택해주세요")
 
@@ -488,6 +488,7 @@ with col1:
     text_color = st.color_picker(
         label="텍스트 색상",
         value="#FFFFFF",  # 기본값: 흰색
+      
         help="텍스트 색상을 선택하세요"
     )
     st.write(f"선택: **{text_color}**")
@@ -496,6 +497,7 @@ with col2:
     bg_color = st.color_picker(
         label="배경 색상",
         value="#FF5733",  # 기본값: 주황색
+        #         
         help="배경 색상을 선택하세요"
     )
     st.write(f"선택: **{bg_color}**")
@@ -573,3 +575,8 @@ st.download_button(
     file_name="scores.csv",
     mime="text/csv"
 )
+
+
+# 외우면 좋긴한데!
+# 자주 바뀌고!
+# 새로운 기술들도 너무 많이 나와서!

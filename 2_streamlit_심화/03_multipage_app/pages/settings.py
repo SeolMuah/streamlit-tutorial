@@ -110,7 +110,7 @@ st.number_input(
 st.divider()
 
 st.warning("아래 버튼을 누르면 모든 설정이 초기화됩니다.")
-if st.button("🗑️ 모든 설정 초기화", type="primary", use_container_width=True):
+if st.button("🗑️ 모든 설정 초기화", type="primary", width='stretch'):
     # [전체 삭제] list()로 키 목록 복사 후 순회하며 삭제
     # 직접 st.session_state.keys()를 순회하면 런타임 오류 발생
     for key in list(st.session_state.keys()):

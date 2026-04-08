@@ -34,9 +34,14 @@ with col1:
 # (2) Session State 사용 - 값 유지됨
 with col2:
     st.subheader("Session State 사용")
-    if 'count' not in st.session_state:
-        st.session_state.count = 0
-    if st.button("+1 증가", key="session_btn"):
+
+    # count라는 key값이 st.session_state에 없는 경우 실행 (세션스테이트 변수 초기화 시 실행되는 구문)
+    # 첫번째 조건문 후에는 세션 스테이트에 카운트가 포함되어서 두 번째 클릭부터는 두번째 조건문이 실행되는건가여?
+    # streamlit app이 실행됐을 때 최초 1번 True가 되서 count변수를 session_state에 저장
+    if 'count' not in st.session_state: #True, False, False .....
+        st.session_state.count = 0 # 초기화 값
+    
+    if st.button("+1 증가", key="session_btn"): #버튼을 누르면 항상 실행됨
         st.session_state.count += 1
     st.write(f"Session State: **{st.session_state.count}**")
     st.success("버튼 클릭할 때마다 값 증가 (값 유지됨)")
@@ -74,6 +79,7 @@ st.header("3. 입력값 검증 (유효성 검사)")
 # - len(): 문자열 길이 검사
 # - isalnum(): 영문자+숫자만 포함 여부 검사
 # - 정규표현식(re): 복잡한 패턴 검사
+#  => 전화번호, 이메일
 st.write("입력값 검증 (유효성 검사): 사용자 입력을 실시간으로 검사하여 즉각적인 피드백 제공")
 st.write("**용도:** 회원가입 폼, 결제 정보 입력 등 유효성 검사가 필요한 경우 사용")
 

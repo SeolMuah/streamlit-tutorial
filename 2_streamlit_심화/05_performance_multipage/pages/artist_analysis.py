@@ -1,13 +1,20 @@
 import streamlit as st
 import pandas as pd
-from utils.database import get_connection
+from utils.database import get_connection, load_overview
 
 st.header("🎤 아티스트 분석")
-st.caption("@st.cache_resource로 DB 연결 캐싱 - 모든 페이지에서 동일한 연결 공유")
 
-# 캐싱된 DB 연결
+# 공통 데이터: DB 전체 요약
 conn = get_connection()
-st.success(f"✅ DB 연결 (id: {id(conn)}) - 다른 페이지와 동일한 id 확인!")
+overview = load_overview()
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric("총 아티스트 수", f"{overview['total_artists']:,}명")
+with col2:
+    st.metric("총 앨범 수", f"{overview['total_albums']:,}장")
+with col3:
+    st.metric("총 트랙 수", f"{overview['total_tracks']:,}곡")
+st.success(f"✅ DB 연결 (id: {id(conn)})")
 
 st.divider()
 

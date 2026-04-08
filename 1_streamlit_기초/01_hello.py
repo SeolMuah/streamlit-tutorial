@@ -15,3 +15,5 @@ st.image(
     "https://i.imgur.com/JWYdPlR.jpeg",
     caption="데이터 분석 중인 포켓몬",
 )
+
+# streamlit run 1_streamlit_기초\01_hello.py
