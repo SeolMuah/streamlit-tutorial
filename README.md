@@ -12,7 +12,7 @@ uv sync
 uv가 없는 경우, Python 3.12 환경에서 아래 명령어로 설치해주세요.
 
 ```bash
-pip install -U streamlit pandas numpy matplotlib seaborn plotly
+pip install -U streamlit pandas numpy matplotlib seaborn plotly pydantic-ai-slim[google] requests
 ```
 
 
